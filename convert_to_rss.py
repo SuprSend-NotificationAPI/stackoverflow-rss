@@ -1,4 +1,10 @@
-import json
+import requests
+
+# Replace the API URL with the actual Stack Exchange API URL
+api_url = "https://api.stackexchange.com/2.3/search/advanced?order=desc&sort=activity&q=smtp%20451&site=stackoverflow"
+response = requests.get(api_url)
+json_data = response.json()
+
 import xml.etree.ElementTree as ET
 import requests
 
@@ -29,13 +35,6 @@ def convert_to_rss(json_data):
     xml_str = ET.tostring(rss, encoding="utf-8").decode("utf-8")
 
     return xml_str
-
-# Replace this URL with the actual Stack Exchange API URL
-api_url = "https://api.stackexchange.com/2.3/search/advanced?order=desc&sort=activity&q=smtp%20451&site=stackoverflow"
-
-# Make a request to the Stack Exchange API
-response = requests.get(api_url)
-json_data = response.json()
 
 # Convert JSON data to RSS
 rss_feed = convert_to_rss(json_data)
